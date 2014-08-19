@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('rte.module', [
+angular.module('rte-angular', [
 ]).
 directive('rte', function ($sce) {
   function link (scope, element, attrs, ngModel) {
@@ -206,7 +206,7 @@ directive('rte', function ($sce) {
   return {
     restrict: 'E',
     require: 'ngModel',
-    templateUrl: '/src/app/rte/rte.html',
+    templateUrl: '/src/rte/rte.html',
     link: link
   };
 }).
@@ -220,6 +220,6 @@ directive('rteDialog', function () {
       action: '&',
       close: '&'
     },
-    templateUrl: '/src/app/rte/rte-dialog.html'
+    templateUrl: '/src/rte/rte-dialog.html'
   };
 });
