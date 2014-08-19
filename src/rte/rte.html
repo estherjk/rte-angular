@@ -12,7 +12,7 @@
       <li ng-repeat="item in formatBlockItems | orderBy:'idx':false">
         <a 
           ng-bind-html="item.label" 
-          ng-click="setFormatBlockItem(item)"
+          ng-click="setActiveFormatBlockItem(item)"
           ng-mousedown="$event.preventDefault()">
         </a>
       </li>
@@ -21,7 +21,7 @@
 
   <div class="btn-group">
     <button
-      ng-repeat="btn in formatBtns | orderBy:'idx':false" 
+      ng-repeat="btn in formatFontStyleBtns | orderBy:'idx':false" 
       class="btn btn-rte" 
       type="button" 
       unselectable="on" 
@@ -33,7 +33,7 @@
 
   <div class="btn-group">
     <button
-      ng-repeat="btn in listBtns | orderBy:'idx':false" 
+      ng-repeat="btn in formatListsBtns | orderBy:'idx':false" 
       class="btn btn-rte" 
       type="button" 
       unselectable="on" 
@@ -45,7 +45,7 @@
 
   <div class="btn-group">
     <button
-      ng-repeat="btn in alignBtns | orderBy:'idx':false" 
+      ng-repeat="btn in formatAlignBtns | orderBy:'idx':false" 
       class="btn btn-rte" 
       type="button" 
       unselectable="on" 
@@ -63,7 +63,7 @@
       type="button" 
       unselectable="on" 
       ng-bind-html="btn.icon"
-      ng-class="{ active: btn.isActive }"
+      ng-class="{ active: btn.dialog.isVisible }"
       ng-click="showDialog(btn)"
       ng-disabled="btn.disable()">
     </button>
@@ -74,9 +74,9 @@
 
 <rte-dialog
   ng-repeat="btn in linkBtns"
-  ng-show="btn.isActive"
-  position="btn.dialogPosition"
-  url="btn.url"
-  action-str="btn.actionStr"
-  action="btn.action()"
-  close="btn.isActive = false"></rte-dialog>
+  ng-show="btn.dialog.isVisible"
+  position="btn.dialog.position"
+  url="btn.dialog.url"
+  action-str="btn.dialog.actionStr"
+  action="btn.dialog.action()"
+  close="btn.dialog.isVisible = false"></rte-dialog>

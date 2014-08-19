@@ -9,6 +9,8 @@ directive('rte', function ($sce) {
     var textSelection;
     var textRange;
 
+    /// format block items
+
     scope.formatBlockItems = [
       { idx: 1, opt: 'div', labelPlain: 'Normal', label: $sce.trustAsHtml("Normal") },
       { idx: 2, opt: 'h1', labelPlain: 'Heading 1', label: $sce.trustAsHtml("<h1>Heading 1</h1>") },
@@ -20,96 +22,95 @@ directive('rte', function ($sce) {
       { idx: 8, opt: 'blockquote', labelPlain: 'Quote', label: $sce.trustAsHtml("<blockquote>Quote</blockquote>") },
       { idx: 9, opt: 'pre', labelPlain: 'Code', label: $sce.trustAsHtml("<pre>Code</pre>") }
     ];
+
     scope.defaultFormatBlockItem = scope.formatBlockItems[0];
     scope.activeFormatBlockItem = scope.defaultFormatBlockItem;
+    scope.setActiveFormatBlockItem = setActiveFormatBlockItem;
 
-    scope.formatBtns = [
+    /// format buttons
+
+    scope.formatFontStyleBtns = [
       { idx: 1, cmd: 'bold', icon: $sce.trustAsHtml("<i class='fa fa-bold'></i>") },
       { idx: 2, cmd: 'italic', icon: $sce.trustAsHtml("<i class='fa fa-italic'></i>") },
       { idx: 3, cmd: 'underline', icon: $sce.trustAsHtml("<i class='fa fa-underline'></i>") },
       { idx: 4, cmd: 'strikethrough', icon: $sce.trustAsHtml("<i class='fa fa-strikethrough'></i>") }
     ];
 
-    scope.listBtns = [
+    scope.formatListBtns = [
       { idx: 1, cmd: 'insertUnorderedList', icon: $sce.trustAsHtml("<i class='fa fa-list-ul'></i>") },
       { idx: 2, cmd: 'insertOrderedList', icon: $sce.trustAsHtml("<i class='fa fa-list-ol'></i>") },
       { idx: 3, cmd: 'outdent', icon: $sce.trustAsHtml("<i class='fa fa-outdent'></i>") },
       { idx: 4, cmd: 'indent', icon: $sce.trustAsHtml("<i class='fa fa-indent'></i>") }
     ];
 
-    scope.alignBtns = [
+    scope.formatAlignBtns = [
       { idx: 1, cmd: 'justifyLeft', icon: $sce.trustAsHtml("<i class='fa fa-align-left'></i>") },
       { idx: 2, cmd: 'justifyCenter', icon: $sce.trustAsHtml("<i class='fa fa-align-center'></i>") },
       { idx: 3, cmd: 'justifyRight', icon: $sce.trustAsHtml("<i class='fa fa-align-right'></i>") }
     ];
+
+    scope.format = format;
+    scope.getFormatState = getFormatState;
+
+    /// link buttons
 
     scope.linkBtns = [
       { 
         idx: 1, 
         opt: 'link',
         icon: $sce.trustAsHtml("<i class='fa fa-link'></i>"),
-        dialogPosition: { top: '0px', left: '0px' },
-        isActive: false,
-        url: undefined,
-        actionStr: 'Insert link',
-        action: function () {
-          textSelection.addRange(textRange);
-          insertHtml("<a href='" + this.url + "' target='_blank'>" + textSelection + "</a>");
-          this.isActive = false;
-        },
         disable: function () {
           return !checkTextSelected();
+        },
+        dialog: {
+          url: undefined,
+          isVisible: false,
+          position: { top: '0px', left: '0px' },
+          actionStr: 'Insert link',
+          action: function () {
+            textSelection.addRange(textRange);
+            insertHtml("<a href='" + this.url + "' target='_blank'>" + textSelection + "</a>");
+            this.isVisible = false;
+          }
         }
       },
       { 
         idx: 2, 
         opt: 'image',
         icon: $sce.trustAsHtml("<i class='fa fa-image'></i>"),
-        dialogPosition: { top: '0px', left: '0px' },
-        isActive: false,
-        url: undefined,
-        actionStr: 'Insert image URL',
-        action: function () {
-          textSelection.addRange(textRange);
-          insertHtml("<img src='" + this.url + "'></img>");
-          this.isActive = false;
+        dialog: {
+          url: undefined,
+          isVisible: false,
+          position: { top: '0px', left: '0px' },
+          actionStr: 'Insert image URL',
+          action: function () {
+            textSelection.addRange(textRange);
+            insertHtml("<img src='" + this.url + "'></img>");
+            this.isVisible = false;
+          }
         }
       },
       { 
         idx: 3, 
         opt: 'video',
         icon: $sce.trustAsHtml("<i class='fa fa-youtube-play'></i>"),
-        dialogPosition: { top: '0px', left: '0px' },
-        isActive: false,
-        url: undefined,
-        actionStr: 'Insert video URL',
-        action: function () {
-          textSelection.addRange(textRange);
-          insertHtml("<iframe src='" + this.url + "' frameborder='0' allowfullscreen></iframe>");
-          this.isActive = false;
+        dialog: {
+          url: undefined,
+          isVisible: false,
+          position: { top: '0px', left: '0px' },
+          actionStr: 'Insert video URL',
+          action: function () {
+            textSelection.addRange(textRange);
+            insertHtml("<iframe src='" + this.url + "' frameborder='0' allowfullscreen></iframe>");
+            this.isVisible = false;
+        }
         }
       }
     ];
-    
-    scope.format = function (cmd) {
-      document.execCommand(cmd, false, null);
-    };
 
-    scope.getFormatState = function (cmd) {
-      return document.queryCommandState(cmd);
-    };
+    scope.showDialog = showDialog;
 
-    scope.setFormatBlockItem = function (item) {
-      scope.activeFormatBlockItem = item;
-      formatBlock(item.opt);
-    };
-
-    scope.showDialog = function (btn) {
-      btn.url = '';
-      saveTextSelectionRange();
-      setActiveItem(btn);
-      positionDialog(btn);
-    };
+    /// functions for formatBlock items
 
     function formatBlock(opt) {
       document.execCommand('formatBlock', false, '<' + opt + '>');
@@ -119,18 +120,50 @@ directive('rte', function ($sce) {
       return document.queryCommandValue('formatBlock') == opt ? true: false;
     }
 
-    function insertHtml(tag) {
-      document.execCommand('insertHTML', false, tag);
+    function setActiveFormatBlockItem(item) {
+      scope.activeFormatBlockItem = item;
+      formatBlock(item.opt);
     }
 
-    function checkFormatBtnStates() {
-      angular.forEach(scope.formatBtns, function (btn) {
-        scope.getFormatState(btn.cmd);
+    function checkFormatBlockState() {
+      angular.forEach(scope.formatBlockItems, function (item) {
+        if(getFormatBlockState(item.opt)) {
+          scope.activeFormatBlockItem = item;
+        }
       });
+    }
+
+    /// functions for format buttons
+
+    function format(cmd) {
+      document.execCommand(cmd, false, null);
+    }
+
+    function getFormatState(cmd) {
+      return document.queryCommandState(cmd);
+    }
+
+    function checkFontStyleStates() {
+      angular.forEach(scope.formatFontStyleBtns, function (btn) {
+        getFormatState(btn.cmd);
+      });
+    }
+
+    /// functions for link buttons
+
+    function insertHtml(markup) {
+      document.execCommand('insertHTML', false, markup);
     }
 
     function checkTextSelected() {
       return document.getSelection().toString() ? true: false;
+    }
+
+    function showDialog(btn) {
+      btn.dialog.url = '';
+      saveTextSelectionRange();
+      setActiveLinkBtn(btn);
+      positionDialog(btn);
     }
 
     function saveTextSelectionRange() {
@@ -140,28 +173,14 @@ directive('rte', function ($sce) {
       }
     }
 
-    function setActiveItem(item) {
-      var isActive = item.isActive;
+    function setActiveLinkBtn(btn) {
+      var isVisible = btn.dialog.isVisible;
 
-      angular.forEach(scope.linkBtns, function (i) {
-        i.isActive = false;
+      angular.forEach(scope.linkBtns, function (b) {
+        b.dialog.isVisible = false;
       });
 
-      item.isActive = !isActive;
-    }
-
-    function setActiveFormatBlockItem() {
-      angular.forEach(scope.formatBlockItems, function (item) {
-        if(getFormatBlockState(item.opt)) {
-          scope.activeFormatBlockItem = item;
-        }
-      });
-    }
-
-    function setDefaultFormatBlockOnEmpty() {
-      if(ngModel.$viewValue == '') {
-        scope.setFormatBlockItem(scope.defaultFormatBlockItem);
-      }
+      btn.dialog.isVisible = !isVisible;
     }
 
     function positionDialog(btn) {
@@ -170,11 +189,13 @@ directive('rte', function ($sce) {
       var btnWidth = $('#btn-' + btn.opt).outerWidth();
       var dialogContentWidth = $('.rte-dialog').outerWidth();
 
-      btn.dialogPosition = {
+      btn.dialog.position = {
         top: (btnPosition.top - $(window).scrollTop() + btnHeight).toString() + 'px',
         left: (btnPosition.left - dialogContentWidth / 2 + btnWidth / 2).toString() + 'px'
       };
     }
+
+    /// 2-way data binding
 
     // view --> model
     function setNgModel() {
@@ -193,12 +214,19 @@ directive('rte', function ($sce) {
       rteContent.html($sce.getTrustedHtml(ngModel.$viewValue || ''));
     };
 
+    // update states
     rteContent.on('mouseup keyup', function () {
       scope.$apply(function () {
+        // update model first...
         setNgModel();
-        setDefaultFormatBlockOnEmpty();
-        setActiveFormatBlockItem();
-        checkFormatBtnStates();
+
+        if(ngModel.$viewValue == '') {
+          setActiveFormatBlockItem(scope.defaultFormatBlockItem);
+        }
+
+        checkFormatBlockState();
+        checkFontStyleStates();
+        
       });
     });
   }
