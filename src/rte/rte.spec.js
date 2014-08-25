@@ -14,7 +14,18 @@ describe('rte directive', function () {
     scope.$digest();
   }));
 
-  it('should have a contenteditable', function () {
-    expect(element.html()).toContain('contenteditable');
+  describe('2-way data binding', function () {
+    it('should render the model', function () {
+      expect(element.find('.rte-content').html()).toBe(scope.testContent.toString());
+    });
+
+    it('should update the model on model change', inject(function ($sce) {
+      var html = '<div>Hello, <b><i>world</i></b></div>';
+
+      scope.testContent = $sce.trustAsHtml(html);
+      scope.$digest();
+
+      expect(element.find('.rte-content').html()).toBe(html);
+    }));
   });
 });
