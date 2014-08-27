@@ -114,6 +114,7 @@ directive('rte', function ($sce) {
 
     function formatBlock(opt) {
       document.execCommand('formatBlock', false, '<' + opt + '>');
+      setNgModel();
     }
 
     function getFormatBlockState(opt) {
@@ -137,6 +138,7 @@ directive('rte', function ($sce) {
 
     function format(cmd) {
       document.execCommand(cmd, false, null);
+      setNgModel();
     }
 
     function getFormatState(cmd) {
@@ -153,6 +155,7 @@ directive('rte', function ($sce) {
 
     function insertHtml(markup) {
       document.execCommand('insertHTML', false, markup);
+      setNgModel();
     }
 
     function checkTextSelected() {
