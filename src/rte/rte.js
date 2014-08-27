@@ -205,7 +205,7 @@ directive('rte', function ($sce) {
       var html = rteContent.html();
 
       // strip out extra <br> tag that is left behind when a contenteditable is cleared
-      if(html == '<br>') {
+      if(html == '<br>' || html == '<div><br></div>') {
         html = '';
       }
 
