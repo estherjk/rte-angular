@@ -101,7 +101,7 @@ directive('rte', function ($sce) {
           actionStr: 'Insert video URL',
           action: function () {
             textSelection.addRange(textRange);
-            insertHtml("<iframe src='" + this.url + "' frameborder='0' allowfullscreen></iframe>");
+            insertHtml("<iframe src='" + this.url + "' width='560' height='315' frameborder='0' allowfullscreen></iframe>");
             this.isVisible = false;
         }
         }
