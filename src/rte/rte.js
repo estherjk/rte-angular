@@ -25,7 +25,7 @@ directive('rte', function ($sce) {
 
     scope.defaultFormatBlockItem = scope.formatBlockItems[0];
     scope.activeFormatBlockItem = scope.defaultFormatBlockItem;
-    scope.setActiveFormatBlockItem = setActiveFormatBlockItem;
+    scope.setActiveFormatBlock = setActiveFormatBlock;
 
     /// format buttons
 
@@ -49,7 +49,7 @@ directive('rte', function ($sce) {
       { idx: 3, cmd: 'justifyRight', icon: $sce.trustAsHtml("<i class='fa fa-align-right'></i>") }
     ];
 
-    scope.format = format;
+    scope.setFormat = setFormat;
     scope.getFormatState = getFormatState;
 
     /// link buttons
@@ -121,7 +121,7 @@ directive('rte', function ($sce) {
       return document.queryCommandValue('formatBlock') == opt ? true: false;
     }
 
-    function setActiveFormatBlockItem(item) {
+    function setActiveFormatBlock(item) {
       scope.activeFormatBlockItem = item;
       formatBlock(item.opt);
     }
@@ -143,6 +143,10 @@ directive('rte', function ($sce) {
 
     function getFormatState(cmd) {
       return document.queryCommandState(cmd);
+    }
+
+    function setFormat(btn) {
+      format(btn.cmd);
     }
 
     function checkFontStyleStates() {
@@ -224,12 +228,11 @@ directive('rte', function ($sce) {
         setNgModel();
 
         if(ngModel.$viewValue == '') {
-          setActiveFormatBlockItem(scope.defaultFormatBlockItem);
+          setActiveFormatBlock(scope.defaultFormatBlockItem);
         }
 
         checkFormatBlockState();
         checkFontStyleStates();
-        
       });
     });
   }

@@ -13,7 +13,7 @@
       <li ng-repeat="item in formatBlockItems | orderBy:'idx':false">
         <a 
           ng-bind-html="item.label" 
-          ng-click="setActiveFormatBlockItem(item)"
+          ng-click="setActiveFormatBlock(item)"
           ng-mousedown="$event.preventDefault()">
         </a>
       </li>
@@ -28,7 +28,7 @@
       unselectable="on" 
       ng-bind-html="btn.icon" 
       ng-class="{ active: getFormatState(btn.cmd) }" 
-      ng-click="format(btn.cmd)">
+      ng-click="setFormat(btn)">
     </button>
   </div>
 
@@ -40,7 +40,7 @@
       unselectable="on" 
       ng-bind-html="btn.icon" 
       ng-class="{ active: getFormatState(btn.cmd) }" 
-      ng-click="format(btn.cmd)">
+      ng-click="setFormat(btn)">
     </button>
   </div>
 
@@ -52,7 +52,7 @@
       unselectable="on" 
       ng-bind-html="btn.icon"
       ng-class="{ active: getFormatState(btn.cmd) }" 
-      ng-click="format(btn.cmd)">
+      ng-click="setFormat(btn)">
     </button>
   </div>
 
