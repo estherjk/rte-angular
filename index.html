@@ -1,1 +1,66 @@
-My GitHub Page
+<!DOCTYPE html>
+<html lang="en" ng-app="rte-angular-demo">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>rte-angular</title>
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="src/rte/rte.css">
+    <style type="text/css">
+      .demo-content-container {
+        margin-top: 40px;
+      }
+
+      .demo-content-view {
+        padding: 10px;
+        min-height: 100px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>    
+    <div class="container">
+      <div class="page-header">
+        <h1>rte-angular
+          <small>An AngularJS rich-text editor</small>
+        </h1>
+      </div>
+
+      <div ng-controller="DemoCtrl">
+        <rte ng-model="demoContent"></rte>
+
+        <div class="demo-content-container">
+          <p>Corresponding HTML:</p>
+          <div class="demo-content-view" ng-bind="demoContent"></div>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <iframe src="http://ghbtns.com/github-btn.html?user=drejkim&repo=rte-angular&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="50" height="20"></iframe>
+        <iframe src="http://ghbtns.com/github-btn.html?user=drejkim&repo=rte-angular&type=fork" allowtransparency="true" frameborder="0" scrolling="0" width="50" height="20"></iframe>
+        <iframe src="http://ghbtns.com/github-btn.html?user=drejkim&type=follow" allowtransparency="true" frameborder="0" scrolling="0" width="132" height="20"></iframe>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="src/rte/rte.js"></script>
+    <script type="text/javascript">
+      'use strict';
+
+      angular.module('rte-angular-demo', [
+        'rte-angular'
+      ]).
+      controller('DemoCtrl', function ($scope, $sce) {
+        $scope.demoContent = $sce.trustAsHtml('<div>Hello, <b>world</b></div>');
+      });
+    </script>
+  </body>
+</html>
