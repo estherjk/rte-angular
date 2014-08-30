@@ -2,6 +2,19 @@
   margin-bottom: 4px;
 }
 
+.rte-btn-toolbar .btn-format-block {
+  display: block;
+  width: 110px;
+  text-align: left;
+}
+
+.rte-btn-toolbar .btn-format-block .caret {
+  position: absolute;
+  margin-top: -1px;
+  right: 10px;
+  top: 50%;
+}
+
 .rte-btn-toolbar .dropdown-menu li {
   border-bottom: 1px solid #ccc;
 }

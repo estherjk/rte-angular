@@ -25,7 +25,7 @@ directive('rte', function ($sce) {
 
     scope.defaultFormatBlockItem = scope.formatBlockItems[0];
     scope.activeFormatBlockItem = scope.defaultFormatBlockItem;
-    scope.setActiveFormatBlockItem = setActiveFormatBlockItem;
+    scope.setActiveFormatBlock = setActiveFormatBlock;
 
     /// format buttons
 
@@ -49,7 +49,7 @@ directive('rte', function ($sce) {
       { idx: 3, cmd: 'justifyRight', icon: $sce.trustAsHtml("<i class='fa fa-align-right'></i>") }
     ];
 
-    scope.format = format;
+    scope.setFormat = setFormat;
     scope.getFormatState = getFormatState;
 
     /// link buttons
@@ -101,7 +101,7 @@ directive('rte', function ($sce) {
           actionStr: 'Insert video URL',
           action: function () {
             textSelection.addRange(textRange);
-            insertHtml("<iframe src='" + this.url + "' frameborder='0' allowfullscreen></iframe>");
+            insertHtml("<iframe src='" + this.url + "' width='560' height='315' frameborder='0' allowfullscreen></iframe>");
             this.isVisible = false;
         }
         }
@@ -114,13 +114,14 @@ directive('rte', function ($sce) {
 
     function formatBlock(opt) {
       document.execCommand('formatBlock', false, '<' + opt + '>');
+      setNgModel();
     }
 
     function getFormatBlockState(opt) {
       return document.queryCommandValue('formatBlock') == opt ? true: false;
     }
 
-    function setActiveFormatBlockItem(item) {
+    function setActiveFormatBlock(item) {
       scope.activeFormatBlockItem = item;
       formatBlock(item.opt);
     }
@@ -137,10 +138,15 @@ directive('rte', function ($sce) {
 
     function format(cmd) {
       document.execCommand(cmd, false, null);
+      setNgModel();
     }
 
     function getFormatState(cmd) {
       return document.queryCommandState(cmd);
+    }
+
+    function setFormat(btn) {
+      format(btn.cmd);
     }
 
     function checkFontStyleStates() {
@@ -153,6 +159,7 @@ directive('rte', function ($sce) {
 
     function insertHtml(markup) {
       document.execCommand('insertHTML', false, markup);
+      setNgModel();
     }
 
     function checkTextSelected() {
@@ -202,7 +209,7 @@ directive('rte', function ($sce) {
       var html = rteContent.html();
 
       // strip out extra <br> tag that is left behind when a contenteditable is cleared
-      if(html == '<br>') {
+      if(html == '<br>' || html == '<div><br></div>') {
         html = '';
       }
 
@@ -221,12 +228,11 @@ directive('rte', function ($sce) {
         setNgModel();
 
         if(ngModel.$viewValue == '') {
-          setActiveFormatBlockItem(scope.defaultFormatBlockItem);
+          setActiveFormatBlock(scope.defaultFormatBlockItem);
         }
 
         checkFormatBlockState();
         checkFontStyleStates();
-        
       });
     });
   }

@@ -1,18 +1,19 @@
 <div class="rte-btn-toolbar" role="toolbar">
   <div class="btn-group">
     <button
-      class="btn btn-rte dropdown-toggle"
+      class="btn btn-rte dropdown-toggle btn-format-block"
       type="button"
       unselectable="on"
       data-toggle="dropdown">
-      {{ activeFormatBlockItem.labelPlain }} <span class="caret"></span>
+      <span>{{ activeFormatBlockItem.labelPlain }}</span>
+      <span class="caret"></span>
     </button>
 
     <ul class="dropdown-menu" role="menu">
       <li ng-repeat="item in formatBlockItems | orderBy:'idx':false">
         <a 
           ng-bind-html="item.label" 
-          ng-click="setActiveFormatBlockItem(item)"
+          ng-click="setActiveFormatBlock(item)"
           ng-mousedown="$event.preventDefault()">
         </a>
       </li>
@@ -27,19 +28,19 @@
       unselectable="on" 
       ng-bind-html="btn.icon" 
       ng-class="{ active: getFormatState(btn.cmd) }" 
-      ng-click="format(btn.cmd)">
+      ng-click="setFormat(btn)">
     </button>
   </div>
 
   <div class="btn-group">
     <button
-      ng-repeat="btn in formatListsBtns | orderBy:'idx':false" 
+      ng-repeat="btn in formatListBtns | orderBy:'idx':false" 
       class="btn btn-rte" 
       type="button" 
       unselectable="on" 
       ng-bind-html="btn.icon" 
       ng-class="{ active: getFormatState(btn.cmd) }" 
-      ng-click="format(btn.cmd)">
+      ng-click="setFormat(btn)">
     </button>
   </div>
 
@@ -51,7 +52,7 @@
       unselectable="on" 
       ng-bind-html="btn.icon"
       ng-class="{ active: getFormatState(btn.cmd) }" 
-      ng-click="format(btn.cmd)">
+      ng-click="setFormat(btn)">
     </button>
   </div>
 
