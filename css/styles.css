@@ -1,0 +1,97 @@
+/*** Sticky footer styles ***/
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -100px;
+}
+
+#wrap-content {
+  padding-bottom: 40px;
+}
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+  height: 100px;
+}
+
+#footer {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  border-top: 1px solid #e7e7e7;
+  background-color: #f8f8f8;
+}
+
+#footer a {
+  color: #777;
+}
+
+#footer a:hover,
+#footer a:focus {
+  color: #333;
+}
+
+#footer p {
+  margin: 0;
+  padding: 0;
+}
+
+#footer .footer-links {
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+#footer .footer-links li {
+  display: inline-block;
+}
+
+#footer .footer-links li+li {
+  margin-left: 15px;
+}
+
+/*** Site styles ***/
+
+.site-header {
+  padding: 20px 0;
+  margin-bottom: 20px;
+  color: white;
+  text-align: center;
+  background-image: -webkit-gradient(
+    linear,
+    right bottom,
+    right top,
+    color-stop(0, #B31B1B),
+    color-stop(1, #D33939)
+  );
+  background-image: -o-linear-gradient(top, #B31B1B 0%, #D33939 100%);
+  background-image: -moz-linear-gradient(top, #B31B1B 0%, #D33939 100%);
+  background-image: -webkit-linear-gradient(top, #B31B1B 0%, #D33939 100%);
+  background-image: -ms-linear-gradient(top, #B31B1B 0%, #D33939 100%);
+  background-image: linear-gradient(to top, #B31B1B 0%, #D33939 100%);
+}
+
+.demo-content-container {
+  margin-top: 40px;
+}
+
+.demo-content-view {
+  padding: 10px;
+  min-height: 100px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.rte-content {
+  height: 300px;
+}

@@ -12,43 +12,42 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="src/rte/rte.css">
-    <style type="text/css">
-      .demo-content-container {
-        margin-top: 40px;
-      }
-
-      .demo-content-view {
-        padding: 10px;
-        min-height: 100px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
-    <div class="container">
-      <div class="page-header">
-        <h1>rte-angular
-          <small>An AngularJS rich-text editor</small>
-        </h1>
-      </div>
+    <div id="wrap">
+      <div id="wrap-content">
+        <div class="site-header">
+          <div class="container">
+            <h1>rte-angular</h1>
+            <p class="lead">An AngularJS rich-text editor</p>
+          </div>
+        </div>
 
-      <div ng-controller="DemoCtrl">
-        <rte ng-model="demoContent"></rte>
+        <div class="container">
+          <div ng-controller="DemoCtrl">
+            <rte ng-model="demoContent"></rte>
 
-        <div class="demo-content-container">
-          <p>Corresponding HTML:</p>
-          <div class="demo-content-view" ng-bind="demoContent"></div>
+            <div class="demo-content-container">
+              <p>Corresponding HTML:</p>
+              <div class="demo-content-view" ng-bind="demoContent"></div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <hr>
+      <div id="push"></div>
+    </div>
 
-      <footer>
-        <iframe src="http://ghbtns.com/github-btn.html?user=drejkim&repo=rte-angular&type=watch" allowtransparency="true" frameborder="0" scrolling="0" width="50" height="20"></iframe>
-        <iframe src="http://ghbtns.com/github-btn.html?user=drejkim&repo=rte-angular&type=fork" allowtransparency="true" frameborder="0" scrolling="0" width="50" height="20"></iframe>
-        <iframe src="http://ghbtns.com/github-btn.html?user=drejkim&type=follow" allowtransparency="true" frameborder="0" scrolling="0" width="132" height="20"></iframe>
-      </footer>
+    <div id="footer">
+      <div class="container">
+        <ul class="footer-links">
+          <li><a href="https://github.com/drejkim/rte-angular" target="_blank">GitHub</a></li>
+        </ul>
+        <p>
+          &#x000A9; 2014 <a href="http://www.drejkim.com">Esther Jun Kim</a>.
+        </p>
+      </div>
     </div>
 
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
