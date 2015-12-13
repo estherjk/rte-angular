@@ -85,13 +85,6 @@ body {
   margin-top: 40px;
 }
 
-.demo-content-view {
-  padding: 10px;
-  min-height: 100px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
 .rte-content {
   height: 300px;
 }
