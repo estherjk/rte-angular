@@ -11,24 +11,16 @@
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://drejkim.com/css/gh-pages.css">
     <link rel="stylesheet" href="src/rte/rte.css">
     <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
     <div class="wrap">
-        <div class="page-header-primary text-center">
-          <div class="container">
-            <h1>rte-angular</h1>
-            <p class="lead">An AngularJS rich-text editor</p>
-
-            <div class="btn-links-container">
-                <a href="https://github.com/drejkim/rte-angular" class="btn btn-lg btn-outline-inverse">GitHub</a>
-            </div>
-          </div>
-        </div>
-
         <div class="container">
+          <div class="page-header">
+            <h1>rte-angular <small>An AngularJS rich-text editor</small></h1>
+          </div>
+
           <div ng-controller="DemoCtrl">
             <rte ng-model="demoContent"></rte>
 
